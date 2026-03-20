@@ -6,10 +6,47 @@ import { AnimatePresence, motion } from 'framer-motion'
 import Lottie from 'lottie-react'
 import loadingAnimation from '@/public/loading.json'
 
+const INITIAL_LOADER_MS = 420
+const NAVIGATION_LOADER_MS = 320
+
 export default function PageTransition({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
   const [visible, setVisible] = useState(true)
+  const mountedRef = useRef(false)
   const pendingNavigationRef = useRef(false)
+  const timeoutRef = useRef<number | null>(null)
+
+  useEffect(() => {
+    timeoutRef.current = window.setTimeout(() => {
+      setVisible(false)
+      mountedRef.current = true
+    }, INITIAL_LOADER_MS)
+
+    return () => {
+      if (timeoutRef.current) {
+        window.clearTimeout(timeoutRef.current)
+      }
+    }
+  }, [])
+
+  useEffect(() => {
+    if (!mountedRef.current || !pendingNavigationRef.current) return
+
+    if (timeoutRef.current) {
+      window.clearTimeout(timeoutRef.current)
+    }
+
+    timeoutRef.current = window.setTimeout(() => {
+      setVisible(false)
+      pendingNavigationRef.current = false
+    }, NAVIGATION_LOADER_MS)
+
+    return () => {
+      if (timeoutRef.current) {
+        window.clearTimeout(timeoutRef.current)
+      }
+    }
+  }, [pathname])
 
   useEffect(() => {
     function handleDocumentClick(event: MouseEvent) {
@@ -37,37 +74,20 @@ export default function PageTransition({ children }: { children: React.ReactNode
     return () => document.removeEventListener('click', handleDocumentClick, true)
   }, [])
 
-  useEffect(() => {
-    if (!pendingNavigationRef.current) return
-    setVisible(true)
-  }, [pathname])
-
-  function handleAnimationComplete() {
-    setVisible(false)
-    pendingNavigationRef.current = false
-  }
-
   return (
     <>
-      <AnimatePresence mode="wait">
+      <AnimatePresence>
         {visible ? (
           <motion.div
             key={`page-loader-${pathname}`}
             initial={{ opacity: 1 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
-            className="pointer-events-auto fixed inset-0 z-[140] flex items-center justify-center bg-[var(--bg)]/92 backdrop-blur-[8px]"
+            transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
+            className="pointer-events-auto fixed inset-0 z-[140] flex items-center justify-center bg-[var(--bg)]/88 backdrop-blur-[6px]"
           >
-            <div className="relative flex items-center justify-center">
-              <div className="absolute inset-0 flex items-center justify-center gap-2">
-                <span className="h-3 w-3 animate-pulse rounded-full bg-[var(--gold)]/90 [animation-delay:0ms]" />
-                <span className="h-3 w-3 animate-pulse rounded-full bg-[var(--gold)]/70 [animation-delay:120ms]" />
-                <span className="h-3 w-3 animate-pulse rounded-full bg-[var(--gold)]/50 [animation-delay:240ms]" />
-              </div>
-              <div className="relative w-[150px] max-w-[38vw] sm:w-[190px]">
-                <Lottie animationData={loadingAnimation} loop={false} autoplay onComplete={handleAnimationComplete} />
-              </div>
+            <div className="w-[132px] max-w-[34vw] sm:w-[168px]">
+              <Lottie animationData={loadingAnimation} loop autoplay />
             </div>
           </motion.div>
         ) : null}
