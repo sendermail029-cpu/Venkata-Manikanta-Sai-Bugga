@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react'
 import { usePathname } from 'next/navigation'
 import { AnimatePresence, motion } from 'framer-motion'
 import Lottie from 'lottie-react'
-import loadingAnimation from '@/public/loading.json'
+import loadingAnimation from '@/public/lottie/loading.json'
 
 const INITIAL_LOADER_MS = 420
 const NAVIGATION_LOADER_MS = 320
