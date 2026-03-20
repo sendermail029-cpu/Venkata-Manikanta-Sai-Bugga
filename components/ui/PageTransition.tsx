@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react'
 import { usePathname } from 'next/navigation'
 import { AnimatePresence, motion } from 'framer-motion'
 import Lottie from 'lottie-react'
-import loadingAnimation from '@/public/loading.json'
+import loadingAnimation from '@/public/lottie/loading.json'
 
 export default function PageTransition({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
