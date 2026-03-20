@@ -1,12 +1,6 @@
-import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
 import Footer from '@/components/layout/Footer'
-
-export const metadata: Metadata = {
-  title: 'About',
-  description: 'Professional summary, experience, education, and certifications.',
-}
 
 const certifications = [
   { title: 'Oracle Cloud Infrastructure Certified Multicloud Architect Professional Certificate', date: 'August 2025', href: 'https://catalog-education.oracle.com/ords/certview/sharebadge?id=9338705C4B55818863D08A53711B175A957EEEBDFC5D47EDEB8CEC2D38E1FF00' },

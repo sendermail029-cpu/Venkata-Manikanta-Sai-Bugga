@@ -1,12 +1,7 @@
 import Link from 'next/link'
 import Footer from '@/components/layout/Footer'
 import ToolLogo from '@/components/ui/ToolLogo'
-import { personal, projects } from '@/data'
-
-export const metadata = {
-  title: `Projects - ${personal.name}`,
-  description: `Explore selected analytics, research, cloud, and technical strategy projects by ${personal.name}.`,
-}
+import { projects } from '@/data'
 
 function PreviewArtwork({
   slug,
