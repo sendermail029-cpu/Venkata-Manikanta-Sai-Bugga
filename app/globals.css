@@ -1,0 +1,524 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================
+   GOOGLE FONTS — Premium Typography Stack
+   ============================================ */
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300;1,9..40,400&family=Playfair+Display:ital,wght@0,400;0,700;1,300;1,400;1,700&family=Cabinet+Grotesk:wght@400;500;700;800;900&display=swap');
+
+/* ============================================
+   CSS CUSTOM PROPERTIES — THEME SYSTEM
+   ============================================ */
+:root {
+  /* Dark Mode (default) */
+  --bg:          #0A0A0A;
+  --bg2:         #111111;
+  --surface:     #1A1A1A;
+  --surface2:    #222222;
+  --border:      rgba(255,255,255,0.08);
+  --border-s:    rgba(255,255,255,0.14);
+  --gold:        #C6A972;
+  --gold-glow:   rgba(198,169,114,0.25);
+  --gold-soft:   rgba(198,169,114,0.10);
+  --gold-dim:    rgba(198,169,114,0.05);
+  --text:        #FFFFFF;
+  --text2:       #A1A1AA;
+  --text3:       #5A5A6A;
+  --glass:       rgba(255,255,255,0.04);
+  --glass-b:     rgba(255,255,255,0.06);
+
+  /* Typography */
+  --font-display: 'Cabinet Grotesk', system-ui, sans-serif;
+  --font-body:    'DM Sans', system-ui, sans-serif;
+  --font-serif:   'Playfair Display', Georgia, serif;
+
+  /* Easing */
+  --ease-premium: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-spring:  cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-smooth:  cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+[data-theme='light'] {
+  --bg:          #F8F6F1;
+  --bg2:         #F1EEE8;
+  --surface:     #FFFFFF;
+  --surface2:    #F8F6F1;
+  --border:      rgba(0,0,0,0.08);
+  --border-s:    rgba(0,0,0,0.14);
+  --gold:        #B9925A;
+  --gold-glow:   rgba(185,146,90,0.20);
+  --gold-soft:   rgba(185,146,90,0.10);
+  --gold-dim:    rgba(185,146,90,0.05);
+  --text:        #161616;
+  --text2:       #5F5F5F;
+  --text3:       #9A9A9A;
+  --glass:       rgba(255,255,255,0.65);
+  --glass-b:     rgba(255,255,255,0.80);
+}
+
+/* ============================================
+   BASE STYLES
+   ============================================ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--bg);
+  background-image:
+    radial-gradient(circle at center, rgba(120,120,140,0.22) 1.1px, transparent 1.2px);
+  background-size: 34px 34px;
+  background-position: 0 0;
+  color: var(--text);
+  overflow-x: hidden;
+  transition:
+    background-color 0.7s var(--ease-premium),
+    color 0.5s var(--ease-premium);
+  cursor: none;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+[data-theme='light'] body {
+  background-image:
+    radial-gradient(circle at center, rgba(130,130,145,0.20) 1.1px, transparent 1.2px);
+  background-size: 34px 34px;
+}
+
+[data-theme='dark'] body {
+  background-image:
+    radial-gradient(circle at center, rgba(95,105,130,0.28) 1.05px, transparent 1.15px);
+  background-size: 34px 34px;
+}
+
+/* ============================================
+   CUSTOM CURSOR
+   ============================================ */
+#cursor {
+  position: fixed;
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: var(--gold);
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: width 0.25s var(--ease-premium), height 0.25s var(--ease-premium);
+  mix-blend-mode: difference;
+}
+
+#cursor-ring {
+  position: fixed;
+  width: 38px; height: 38px;
+  border: 1px solid var(--gold);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  opacity: 0.5;
+  transition: width 0.4s var(--ease-premium), height 0.4s var(--ease-premium), opacity 0.3s;
+}
+
+body.hovering #cursor { width: 6px; height: 6px; }
+body.hovering #cursor-ring { width: 58px; height: 58px; opacity: 0.8; }
+body.clicking #cursor-ring { width: 28px; height: 28px; opacity: 1; }
+
+/* ============================================
+   TYPOGRAPHY UTILITIES
+   ============================================ */
+.font-display { font-family: var(--font-display); }
+.font-serif   { font-family: var(--font-serif); }
+.font-body    { font-family: var(--font-body); }
+
+.text-gold    { color: var(--gold); }
+.text-primary { color: var(--text); }
+.text-secondary { color: var(--text2); }
+.text-tertiary  { color: var(--text3); }
+
+.display-headline {
+  font-family: var(--font-display);
+  font-size: clamp(3.5rem, 8vw, 8.5rem);
+  font-weight: 900;
+  line-height: 0.93;
+  letter-spacing: -0.03em;
+}
+
+.display-hero {
+  font-family: var(--font-display);
+  font-size: clamp(4rem, 9vw, 9.5rem);
+  font-weight: 900;
+  line-height: 0.92;
+  letter-spacing: -0.035em;
+}
+
+.display-section {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 5vw, 5rem);
+  font-weight: 800;
+  line-height: 1.0;
+  letter-spacing: -0.025em;
+}
+
+.serif-accent {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--gold);
+}
+
+/* ============================================
+   LAYOUT UTILITIES
+   ============================================ */
+.container-main {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 3rem;
+}
+
+@media (max-width: 768px) {
+  .container-main { padding: 0 1.25rem; }
+}
+
+.section-pad { padding: 8rem 0; }
+.section-pad-sm { padding: 5rem 0; }
+
+/* ============================================
+   SURFACE / GLASS UTILITIES
+   ============================================ */
+.surface {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  transition: background 0.5s var(--ease-premium), border-color 0.5s;
+}
+
+.glass-card {
+  background: var(--glass);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--border);
+  transition: all 0.5s var(--ease-premium);
+}
+
+.glass-card:hover {
+  border-color: var(--border-s);
+  background: var(--glass-b);
+}
+
+/* ============================================
+   GOLD ACCENT UTILITIES
+   ============================================ */
+.gold-line {
+  width: 48px; height: 1px;
+  background: var(--gold);
+  display: block;
+}
+
+.gold-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--gold);
+  box-shadow: 0 0 10px var(--gold-glow);
+  display: inline-block;
+}
+
+.newtons-cradle-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.5rem;
+  height: 2.4rem;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  color: var(--text2);
+  transition: transform 0.2s var(--ease-premium), color 0.2s var(--ease-premium);
+}
+
+.newtons-cradle-button:hover {
+  color: var(--text);
+  transform: translateY(-1px);
+}
+
+.newtons-cradle {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 0.28rem;
+  width: 2.9rem;
+  height: 1.5rem;
+}
+
+.newtons-cradle__dot {
+  position: relative;
+  display: block;
+  flex: 0 0 auto;
+  width: 0.72rem;
+  height: 0.72rem;
+  border-radius: 999px;
+  background: currentColor;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+  transform-origin: 50% -0.72rem;
+}
+
+.newtons-cradle__dot:first-child {
+  animation: cradle-left 1.35s ease-in-out infinite;
+}
+
+.newtons-cradle__dot:last-child {
+  animation: cradle-right 1.35s ease-in-out infinite 0.675s;
+}
+
+@keyframes cradle-left {
+  0%, 50%, 100% {
+    transform: rotate(0deg);
+  }
+  20%, 30% {
+    transform: rotate(34deg);
+  }
+}
+
+@keyframes cradle-right {
+  0%, 50%, 100% {
+    transform: rotate(0deg);
+  }
+  20%, 30% {
+    transform: rotate(-34deg);
+  }
+}
+
+@keyframes spotifyWave {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+  }
+  35% {
+    transform: translateY(-5px) scale(1.05);
+  }
+  70% {
+    transform: translateY(1px) scale(0.96);
+  }
+}
+
+.section-eyebrow {
+  font-family: var(--font-display);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold);
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+}
+
+.section-eyebrow::before {
+  content: '';
+  display: block;
+  width: 32px; height: 1px;
+  background: var(--gold);
+}
+
+/* ============================================
+   BUTTON UTILITIES
+   ============================================ */
+.btn-gold {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.875rem 2rem;
+  background: var(--gold);
+  color: #000;
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s var(--ease-premium), box-shadow 0.3s var(--ease-premium);
+}
+
+.btn-gold::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0);
+  transition: background 0.3s;
+}
+
+.btn-gold:hover { transform: translateY(-3px); box-shadow: 0 14px 40px var(--gold-glow); }
+.btn-gold:hover::after { background: rgba(0,0,0,0.12); }
+.btn-gold:active { transform: translateY(-1px); }
+
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.875rem 2rem;
+  background: transparent;
+  color: var(--text);
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: 1px solid var(--border-s);
+  cursor: pointer;
+  transition: all 0.3s var(--ease-premium);
+}
+
+.btn-outline:hover {
+  border-color: var(--gold);
+  background: var(--gold-soft);
+  transform: translateY(-2px);
+}
+
+/* ============================================
+   GRID TAG / BADGE
+   ============================================ */
+.tag-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.7rem;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text3);
+  border: 1px solid var(--border);
+  font-family: var(--font-display);
+  transition: border-color 0.3s, color 0.3s;
+}
+
+.tag-chip:hover { border-color: var(--gold); color: var(--gold); }
+
+/* ============================================
+   SCROLLBAR
+   ============================================ */
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 2px; }
+
+/* ============================================
+   SELECTION
+   ============================================ */
+::selection { background: var(--gold); color: #000; }
+
+/* ============================================
+   NOISE OVERLAY
+   ============================================ */
+.noise-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9990;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+}
+
+/* ============================================
+   REVEAL ANIMATIONS
+   ============================================ */
+.reveal {
+  opacity: 0;
+  transform: translateY(36px);
+  transition: opacity 0.9s var(--ease-premium), transform 0.9s var(--ease-premium);
+}
+
+.reveal.in-view { opacity: 1; transform: translateY(0); }
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.45s; }
+.reveal-delay-5 { transition-delay: 0.6s; }
+
+/* ============================================
+   MARQUEE (Tech Stack Ticker)
+   ============================================ */
+.marquee-track {
+  display: flex;
+  gap: 3rem;
+  animation: marquee 30s linear infinite;
+  white-space: nowrap;
+  will-change: transform;
+}
+
+@keyframes marquee {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ============================================
+   PROJECT CARD TILT
+   ============================================ */
+.tilt-card {
+  transform-style: preserve-3d;
+  transition: transform 0.15s ease-out;
+}
+
+/* ============================================
+   SKILL BAR
+   ============================================ */
+.skill-bar-fill {
+  height: 100%;
+  background: var(--gold);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 1.4s var(--ease-premium);
+}
+
+.skill-card.in-view .skill-bar-fill { transform: scaleX(1); }
+
+/* ============================================
+   NAV TRANSITIONS
+   ============================================ */
+.nav-link-underline {
+  position: relative;
+}
+
+.nav-link-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -3px; left: 0;
+  width: 100%; height: 1px;
+  background: var(--gold);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.4s var(--ease-premium);
+}
+
+.nav-link-underline:hover::after { transform: scaleX(1); transform-origin: left; }
+
+/* ============================================
+   EQ BARS (Spotify)
+   ============================================ */
+.eq-bar {
+  width: 2px;
+  background: var(--gold);
+  border-radius: 1px;
+  animation: eq 0.6s ease-in-out infinite alternate;
+}
+
+@keyframes eq {
+  from { transform: scaleY(0.25); }
+  to   { transform: scaleY(1); }
+}
+
+/* ============================================
+   MEDIA — MOBILE CURSOR DISABLE
+   ============================================ */
+@media (hover: none) {
+  body { cursor: auto; }
+  #cursor, #cursor-ring { display: none; }
+}
