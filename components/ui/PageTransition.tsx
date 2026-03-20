@@ -6,8 +6,8 @@ import { AnimatePresence, motion } from 'framer-motion'
 import Lottie from 'lottie-react'
 import loadingAnimation from '@/public/lottie/loading.json'
 
-const INITIAL_LOADER_MS = 420
-const NAVIGATION_LOADER_MS = 320
+const INITIAL_LOADER_MS = 240
+const NAVIGATION_LOADER_MS = 180
 
 export default function PageTransition({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
@@ -83,10 +83,10 @@ export default function PageTransition({ children }: { children: React.ReactNode
             initial={{ opacity: 1 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
-            className="pointer-events-auto fixed inset-0 z-[140] flex items-center justify-center bg-[var(--bg)]/88 backdrop-blur-[6px]"
+            transition={{ duration: 0.14, ease: [0.22, 1, 0.36, 1] }}
+            className="pointer-events-auto fixed inset-0 z-[140] flex items-center justify-center bg-[var(--bg)]/74 backdrop-blur-[4px]"
           >
-            <div className="w-[132px] max-w-[34vw] sm:w-[168px]">
+            <div className="w-[112px] max-w-[30vw] sm:w-[148px]">
               <Lottie animationData={loadingAnimation} loop autoplay />
             </div>
           </motion.div>

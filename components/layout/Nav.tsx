@@ -148,7 +148,7 @@ export default function Nav() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.16 }}
-              className="fixed inset-0 z-[98] bg-[rgba(5,8,14,0.62)] backdrop-blur-[10px] md:hidden"
+              className="fixed inset-0 z-[98] bg-[rgba(5,8,14,0.46)] backdrop-blur-[8px] md:hidden data-[theme=light]:bg-[rgba(245,241,233,0.55)]"
               onClick={() => setMenuOpen(false)}
             />
 
@@ -157,7 +157,7 @@ export default function Nav() {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -14, scale: 0.985 }}
               transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
-              className="fixed left-4 right-4 top-[5.35rem] z-[99] overflow-hidden rounded-[28px] border border-[var(--border)] bg-[var(--surface)]/96 p-3 shadow-[0_28px_80px_rgba(0,0,0,0.22)] backdrop-blur-[18px] md:hidden"
+              className="fixed left-4 right-4 top-[5.35rem] z-[99] overflow-hidden rounded-[28px] border border-[var(--border)] bg-[var(--surface)] p-3 shadow-[0_28px_80px_rgba(0,0,0,0.22)] backdrop-blur-[18px] md:hidden"
             >
               <div className="mb-2 flex items-center justify-between px-2 pt-1">
                 <div className="text-[0.72rem] font-700 uppercase tracking-[0.18em] text-[var(--text3)]">
@@ -183,7 +183,7 @@ export default function Nav() {
                         className={`flex items-center justify-between rounded-[20px] px-4 py-4 transition-all duration-200 ${
                           active
                             ? 'bg-[var(--gold-soft)] text-[var(--text)] shadow-[0_10px_28px_rgba(15,23,42,0.08)]'
-                            : 'bg-[var(--bg2)]/46 text-[var(--text2)] hover:bg-[var(--bg2)] hover:text-[var(--text)]'
+                            : 'bg-[var(--bg2)] text-[var(--text)] hover:bg-[var(--surface2)] hover:text-[var(--text)]'
                         }`}
                       >
                         <span className="text-[1rem] font-700 tracking-[0.01em]" style={{ fontFamily: 'var(--font-display)' }}>
@@ -193,7 +193,7 @@ export default function Nav() {
                           className={`flex h-9 w-9 items-center justify-center rounded-full border text-[1rem] ${
                             active
                               ? 'border-[var(--gold)]/45 bg-white/75 text-[var(--gold)]'
-                              : 'border-[var(--border)] bg-white/55 text-[var(--text3)]'
+                              : 'border-[var(--border)] bg-[var(--surface)] text-[var(--text2)]'
                           }`}
                           aria-hidden="true"
                         >
